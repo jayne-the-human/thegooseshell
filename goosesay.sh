@@ -106,11 +106,15 @@ print_goose() {
     done < $0
 }
 
-LOOSE_GOOSE="/tmp/goose_on_the_loose"
-if [[ "$1" == "-h" || "$1" == "--help" || -z "$1" ]]; then
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
     print_goose "# USAGE"
+    exit
+fi
 
-    if [[ -z "$1" && ! -f "$LOOSE_GOOSE" ]]; then
+LOOSE_GOOSE="/tmp/goose_on_the_loose"
+if [ -z "$1" ]; then
+    print_goose "# GOOSE" "HONK!"    
+    if [ ! -f "$LOOSE_GOOSE" ]; then
         #echo " The goose hungers!" # (for command line arguments)
         touch $LOOSE_GOOSE
         bash -c "$0 -s"
